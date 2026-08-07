@@ -1,0 +1,200 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — CURATORS PICKS
+   Elegant horizontal card scroll on warm white background
+   ═══════════════════════════════════════════════════════════════ */
+
+.curators-picks-section {
+  background: var(--bg);
+  padding: 112px 0 120px;
+}
+
+.curators-picks-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.curators-picks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+}
+
+/* Carousel */
+.picks-carousel-container {
+  position: relative;
+}
+
+.picks-carousel {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 4px;
+}
+
+.picks-carousel::-webkit-scrollbar { display: none; }
+
+/* Art Pick Card */
+.art-pick-card {
+  flex: 0 0 calc(25% - 21px);
+  min-width: 280px;
+  scroll-snap-align: start;
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.45s var(--ease-lux), box-shadow 0.45s var(--ease-lux), border-color 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.art-pick-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-border);
+}
+
+.art-pick-image-wrapper {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--bg-alt);
+  padding: 12px;
+}
+
+.art-pick-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: transform 0.6s var(--ease-lux);
+}
+
+.art-pick-card:hover .art-pick-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.art-pick-overlay {
+  position: absolute;
+  inset: 12px;
+  border-radius: 10px;
+  background: rgba(30, 28, 24, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.art-pick-card:hover .art-pick-overlay { opacity: 1; }
+
+.quick-view-btn {
+  background: var(--bg);
+  color: var(--heading);
+  border: 1px solid var(--border);
+  padding: 11px 22px;
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-view-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+}
+
+/* Card info */
+.art-pick-info {
+  padding: 20px 22px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.art-pick-details { display: flex; flex-direction: column; }
+
+.art-pick-name {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  color: var(--heading);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.art-pick-artist {
+  font-size: 12.5px;
+  color: var(--body);
+  margin-bottom: 10px;
+}
+
+.art-pick-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.3px;
+}
+
+.wishlist-btn {
+  background: none;
+  border: none;
+  color: var(--body);
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 4px;
+}
+
+.wishlist-btn:hover {
+  color: var(--gold);
+  transform: scale(1.15);
+}
+
+/* Carousel Controls */
+.carousel-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.carousel-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--heading);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.carousel-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(184, 137, 69, 0.28);
+}
+
+@media (max-width: 1024px) {
+  .art-pick-card { flex: 0 0 calc(50% - 14px); }
+}
+
+@media (max-width: 768px) {
+  .curators-picks-inner { padding: 0 24px; }
+  .curators-picks-section { padding: 80px 0; }
+  .curators-picks-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+
+@media (max-width: 600px) {
+  .art-pick-card { flex: 0 0 85vw; }
+}

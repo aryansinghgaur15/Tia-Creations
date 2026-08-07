@@ -1,0 +1,383 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — FEATURED ARTIST (EDITORIAL REDESIGN)
+   Warm Ivory Background, 35/65 Layout, Luxury Editorial Feel
+   ═══════════════════════════════════════════════════════════════ */
+
+.featured-artist-section {
+  background: var(--bg); /* Warm Ivory */
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+
+.featured-artist-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── 2-Column Asymmetric Layout ──────────────────────────────── */
+.artist-editorial-container {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  gap: 48px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+/* ── Left: Portrait (35%) ────────────────────────────────────── */
+.artist-portrait-col {
+  position: relative;
+}
+
+.artist-portrait-wrapper {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--card);
+}
+
+.artist-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-lux);
+}
+
+.artist-portrait-wrapper:hover .artist-portrait {
+  transform: scale(1.03);
+}
+
+.artist-badge-overlay {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--heading);
+  box-shadow: 0 4px 12px rgba(30, 28, 24, 0.1);
+}
+
+/* ── Right: Content (65%) ────────────────────────────────────── */
+.artist-content-col {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+}
+
+.artist-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.artist-name {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 400;
+  color: var(--heading);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.verified-badge {
+  color: var(--gold);
+  background: var(--gold-pale);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.artist-specialty {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* Thin Gold Divider */
+.editorial-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 24px;
+}
+
+.artist-quote {
+  font-family: var(--font-accent);
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--heading);
+  margin-bottom: 20px;
+  max-width: 90%;
+}
+
+.artist-story {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--body);
+  margin-bottom: 32px;
+  max-width: 90%;
+  font-weight: 300;
+}
+
+/* Accolades & Signature Row */
+.artist-accolades-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.accolades-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accolade-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--body);
+  font-weight: 500;
+}
+
+.accolade-item svg {
+  color: var(--gold);
+}
+
+.signature-svg {
+  height: 60px;
+  width: auto;
+  opacity: 0.8;
+}
+
+.signature-path {
+  fill: none;
+  stroke: var(--heading);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Statistics Cards ────────────────────────────────────────── */
+.artist-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gold-border);
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--heading);
+  margin-bottom: 4px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: var(--body);
+  text-transform: uppercase;
+}
+
+/* ── CTAs ────────────────────────────────────────────────────── */
+.artist-ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Horizontal Gallery (Bottom) ─────────────────────────────── */
+.artist-gallery {
+  margin-top: 48px;
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.gallery-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--heading);
+  margin: 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-lux);
+}
+
+.gallery-item:hover .gallery-img {
+  transform: scale(1.06);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(30, 28, 24, 0.6) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-info {
+  color: #fff;
+}
+
+.gallery-artwork-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.gallery-artwork-price {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .artist-editorial-container {
+    gap: 48px;
+  }
+  
+  .artist-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .artist-editorial-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .artist-portrait-wrapper {
+    aspect-ratio: 16/9;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .artist-content-col {
+    padding-top: 0;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .artist-story, .artist-quote {
+    max-width: 100%;
+  }
+  
+  .artist-accolades-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .accolades-list {
+    align-items: center;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .featured-artist-section { padding: 48px 0; }
+  .featured-artist-inner { padding: 0 20px; }
+  
+  .artist-name { font-size: 26px; }
+  .artist-stats-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  
+  .artist-ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .artist-ctas > * {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,35 @@
+.loader-container {
+  position: fixed;
+  inset: 0;
+  background-color: var(--primary-bg);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.loader-logo-img {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+}
+
+.loader-progress {
+  width: 120px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.loader-bar {
+  height: 100%;
+  background: var(--luxury-gold);
+}

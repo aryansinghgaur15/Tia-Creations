@@ -1,0 +1,599 @@
+// =============================================================================
+// TIA Creations — Prisma Schema (MySQL)
+// Marketplace User Architecture Blueprint v1.0 — §13 ERD
+// Single-account, scope-driven, admin-internal, async-approval foundation.
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// ENUMS
+// -----------------------------------------------------------------------------
+
+enum UserStatus {
+  active
+  suspended
+  banned
+}
+
+enum UserRole {
+  user
+  admin // NEVER publicly registered — seeded/invited only
+}
+
+enum ArtistStatus {
+  none
+  pending
+  approved
+  rejected
+  revoked
+}
+
+enum ArtworkStatus {
+  draft
+  in_review
+  changes_requested
+  published
+  rejected
+  archived
+  sold
+}
+
+enum KycStatus {
+  unverified
+  submitted
+  verified
+  failed
+}
+
+enum OrderStatus {
+  placed
+  paid
+  shipped
+  delivered
+  completed
+  cancelled
+  disputed
+  refunded
+}
+
+enum PayoutStatus {
+  pending
+  held
+  settled
+  failed
+}
+
+enum AddressType {
+  billing
+  shipping
+}
+
+enum ReviewQueueType {
+  artist
+  artwork
+}
+
+enum ReviewQueueStatus {
+  open
+  assigned
+  resolved
+  escalated
+}
+
+enum ApplicationStatus {
+  pending
+  under_review
+  needs_info
+  approved
+  rejected
+}
+
+enum ApplicationPriority {
+  normal
+  high
+  urgent
+}
+
+enum NotificationType {
+  user_registered
+  user_suspended
+  user_reactivated
+  artist_application_submitted
+  artist_approved
+  artist_rejected
+  artwork_submitted
+  artwork_published
+  artwork_rejected
+  artwork_changes_requested
+  order_placed
+  price_drop
+  artist_new_work
+  review_posted
+  payout_processed
+}
+
+enum NotificationChannel {
+  in_app
+  email
+  push
+}
+
+enum CmsPageStatus {
+  draft
+  published
+  archived
+}
+
+// -----------------------------------------------------------------------------
+// CORE IDENTITY
+// -----------------------------------------------------------------------------
+
+model User {
+  id            String      @id @default(uuid())
+  email         String      @unique
+  phone         String?     // E.164
+  passwordHash  String?     // null for oauth-only accounts
+  fullName      String
+  displayName   String
+  avatarUrl     String?
+  userStatus    UserStatus  @default(active)
+  role          UserRole    @default(user)
+  artistStatus  ArtistStatus @default(none)
+  scopes        Json        @default("[]") // computed capability list, materialized
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  addresses         UserAddress[]
+  sessions          UserSession[]
+  oauthAccounts     UserOauth[]
+  twoFactor         User2fa?
+  privacy           UserPrivacy?
+  artistProfile     ArtistProfile?
+  artistApplication ArtistApplication?
+  applicationNotes  ApplicationNote[]
+  artworks          Artwork[]           @relation("ArtistArtworks")
+  portfolioImages   ArtistPortfolioImg[]
+  payouts           ArtistPayout[]
+  messagesSent      ArtistMessage[]     @relation("BuyerMessages")
+  messagesReceived  ArtistMessage[]     @relation("ArtistMessages")
+  wishlistItems     ArtworkSave[]
+  following         ArtistFollow[]      @relation("Follower")
+  followedBy        ArtistFollow[]      @relation("FollowedArtist")
+  reviews           ArtworkReview[]
+  orders            Order[]
+  auditActions      AdminAudit[]
+  notifications     Notification[]
+
+  @@index([email])
+  @@index([artistStatus])
+  @@map("users")
+}
+
+model UserAddress {
+  id         String      @id @default(uuid())
+  userId     String     
+  type       AddressType
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  country    String
+  pincode    String
+  isDefault  Boolean     @default(false)
+  createdAt  DateTime    @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_addresses")
+}
+
+model UserSession {
+  id         String   @id @default(uuid())
+  userId     String  
+  tokenHash  String
+  deviceFp   String?
+  ip         String?
+  expiresAt  DateTime
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_sessions")
+}
+
+model UserOauth {
+  id             String   @id @default(uuid())
+  userId         String  
+  provider       String
+  providerUserId String
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerUserId])
+  @@index([userId])
+  @@map("user_oauth")
+}
+
+model User2fa {
+  userId    String   @id
+  secret    String
+  enabled   Boolean  @default(false)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_2fa")
+}
+
+model UserPrivacy {
+  userId      String   @id
+  visibility  String   @default("public")
+  exportReq   Boolean  @default(false)
+  deleteReq   Boolean  @default(false)
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_privacy")
+}
+
+// -----------------------------------------------------------------------------
+// ARTIST LAYER (populated only when artistStatus = approved / pending)
+// -----------------------------------------------------------------------------
+
+model ArtistProfile {
+  userId          String    @id
+  bio             String?
+  experienceYears Int?
+  education       Json? // [{school, degree, year}]
+  awards          Json? // [{title, year, issuer}]
+  specialization  String?
+  mediums         Json // ["Oil", "Acrylic"] — MySQL has no native arrays
+  styles          Json // ["Abstract", "Modern"]
+  subjects        Json // ["Landscape", "Portrait"]
+  website         String?
+  instagram       String?
+  facebook        String?
+  kycStatus       KycStatus @default(unverified)
+  ratingAvg       Float?    @default(0) // materialized
+  followersCount  Int       @default(0) // materialized
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("artist_profiles")
+}
+
+model ArtistApplication {
+  userId        String              @id
+  step          Int                 @default(1) // resume pointer (1..6)
+  personal      Json? // {fullName, displayName, country, state, city, phone, photo}
+  info          Json? // {bio, experience, education, awards, specialization, mediums[], styles[], subjects[], website, ig, fb}
+  portfolio     Json? // {images[], description}
+  kycDocs       Json? // encrypted refs: {govId, addressProof, pan, tax}
+  payment       Json? // encrypted: {bank, upi, paypal, taxDetails}
+  terms         Json? // {agreed, termsVersion, agreedAt}
+  status        ApplicationStatus  @default(pending)
+  priority      ApplicationPriority @default(normal)
+  assignedTo    String?
+  submittedAt   DateTime?
+  reviewedAt    DateTime?
+  reviewedBy    String?
+  rejectReason  String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  user  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notes ApplicationNote[]
+
+  @@index([status])
+  @@map("artist_applications")
+}
+
+model ApplicationNote {
+  id                String   @id @default(uuid())
+  applicationUserId String
+  adminId           String
+  content           String
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  admin       User              @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  application ArtistApplication @relation(fields: [applicationUserId], references: [userId], onDelete: Cascade)
+
+  @@index([applicationUserId])
+  @@map("application_notes")
+}
+
+model ArtistPortfolioImg {
+  id         String   @id @default(uuid())
+  userId     String  
+  url        String
+  caption    String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("artist_portfolio_imgs")
+}
+
+model ArtistPayout {
+  id         String       @id @default(uuid())
+  userId     String      
+  amount     Decimal     @db.Decimal(12, 2)
+  currency   String       @default("INR") @db.Char(3)
+  status     PayoutStatus @default(pending)
+  method     String? // bank | upi
+  txnRef     String?
+  createdAt  DateTime     @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("artist_payouts")
+}
+
+model ArtistMessage {
+  id         String   @id @default(uuid())
+  artistId   String  
+  buyerId    String  
+  body       String
+  readAt     DateTime?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  artist User @relation("ArtistMessages", fields: [artistId], references: [id], onDelete: Cascade)
+  buyer  User @relation("BuyerMessages", fields: [buyerId], references: [id], onDelete: Cascade)
+
+  @@index([artistId])
+  @@index([buyerId])
+  @@map("artist_messages")
+}
+
+// -----------------------------------------------------------------------------
+// ARTWORK LAYER
+// -----------------------------------------------------------------------------
+
+model Artwork {
+  id           String        @id @default(uuid())
+  artistId     String       
+  title        String
+  description  String?
+  categoryId        String?
+  subcategory       String?
+  customSubcategory String?
+  medium            String?
+  style             String?
+  subject           String?
+  orientation  String?
+  dimensions   String?
+  year         String?
+  price      Decimal     @db.Decimal(12, 2)
+  currency     String        @default("INR") @db.Char(3)
+  certificate  Boolean       @default(false)
+  tags         Json // drives collections + recommendations
+  images       Json? // [{full, featured, thumb}]
+  thumbnail    String?
+  status       ArtworkStatus @default(draft)
+  isFeatured   Boolean       @default(false)
+  ratingAvg    Float?        @default(0) // materialized from reviews
+  views        Int           @default(0) // materialized
+  saves        Int           @default(0) // materialized
+  createdAt    DateTime      @default(now()) @map("created_at")
+  publishedAt  DateTime?
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  artist      User            @relation("ArtistArtworks", fields: [artistId], references: [id], onDelete: Cascade)
+  category    Category?       @relation(fields: [categoryId], references: [id])
+  reviews     ArtworkReview[]
+  savesRel    ArtworkSave[]
+  orderItems  OrderItem[]
+
+  @@index([artistId, status, publishedAt])
+  @@index([status])
+  @@map("artworks")
+}
+
+model ArtworkReview {
+  id            String   @id @default(uuid())
+  artworkId     String  
+  userId        String  
+  rating        Int // 1..5
+  title         String?
+  body          String?
+  helpfulCount  Int      @default(0)
+  verified      Boolean  @default(false) // purchased-only gate
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  artwork Artwork @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([artworkId])
+  @@index([userId])
+  @@map("artwork_reviews")
+}
+
+model ArtworkSave {
+  id        String   @id @default(uuid())
+  userId    String  
+  artworkId String  
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  artwork Artwork @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, artworkId])
+  @@index([artworkId])
+  @@map("artwork_saves")
+}
+
+model ArtistFollow {
+  id        String   @id @default(uuid())
+  userId    String   // follower (buyer)
+  artistId  String   // followed artist
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User    @relation("Follower", fields: [userId], references: [id], onDelete: Cascade)
+  artist User    @relation("FollowedArtist", fields: [artistId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, artistId])
+  @@index([artistId])
+  @@map("artist_follows")
+}
+
+// -----------------------------------------------------------------------------
+// COMMERCE
+// -----------------------------------------------------------------------------
+
+model Order {
+  id         String      @id @default(uuid())
+  buyerId    String     
+  amount     Decimal     @db.Decimal(12, 2)
+  currency   String      @default("INR") @db.Char(3)
+  status     OrderStatus @default(placed)
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  buyer     User        @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  items     OrderItem[]
+
+  @@index([buyerId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String  
+  artworkId String  
+  price     Decimal  @db.Decimal(12, 2)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  artwork Artwork @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([artworkId])
+  @@map("order_items")
+}
+
+// -----------------------------------------------------------------------------
+// ADMIN & PLATFORM
+// -----------------------------------------------------------------------------
+
+model AdminAudit {
+  id          String   @id @default(uuid())
+  adminId     String  
+  action      String
+  entityType  String
+  entityId    String
+  meta        Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  admin User @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([entityType, entityId])
+  @@map("admin_audit")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  parentId  String? 
+  createdAt DateTime @default(now()) @map("created_at")
+
+  artworks  Artwork[]
+  parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryHierarchy")
+
+  @@map("categories")
+}
+
+model Taxonomy {
+  id        String   @id @default(uuid())
+  type      String   // "medium", "style", "theme", "subject"
+  name      String
+  slug      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([type, slug])
+  @@map("taxonomies")
+}
+
+model Collection {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  curatorId   String? 
+  artworkIds  Json // references artworks.id (denormalized for feed perf)
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@index([slug])
+  @@map("collections")
+}
+
+model Exhibition {
+  id          String    @id @default(uuid())
+  title       String
+  startDate   DateTime
+  endDate     DateTime
+  artworkIds  Json
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@map("exhibitions")
+}
+
+model CmsPage {
+  id        String        @id @default(uuid())
+  slug      String        @unique
+  title     String
+  body      String
+  status    CmsPageStatus @default(draft)
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+
+  @@map("cms_pages")
+}
+
+model Notification {
+  id        String             @id @default(uuid())
+  userId    String            
+  type      NotificationType
+  channel   NotificationChannel
+  body      String
+  readAt    DateTime?
+  createdAt DateTime           @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@map("notifications")
+}
+
+model ReviewQueue {
+  id         String            @id @default(uuid())
+  type       ReviewQueueType
+  refId      String // artist application userId OR artwork id
+  status     ReviewQueueStatus @default(open)
+  assignedTo String?          
+  slaDueAt   DateTime?
+  createdAt  DateTime          @default(now()) @map("created_at")
+
+  @@index([type, status])
+  @@index([refId])
+  @@map("review_queue")
+}

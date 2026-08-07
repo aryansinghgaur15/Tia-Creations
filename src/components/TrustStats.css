@@ -1,0 +1,85 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — TRUST STATS
+   Elegant stat bar on warm paper background
+   ═══════════════════════════════════════════════════════════════ */
+
+.trust-stats-section {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+
+.trust-stats-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  align-items: stretch;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 28px 0;
+  border-right: 1px solid var(--border);
+  padding-right: 32px;
+  padding-left: 32px;
+  transition: background 0.25s ease;
+}
+
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child  { border-right: none; padding-right: 0; }
+
+.stat-icon {
+  color: var(--gold);
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--heading);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--body);
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  .trust-stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 24px;
+  }
+
+  .stat-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 24px 16px;
+  }
+
+  .stat-item:nth-child(3n) { border-right: none; }
+}
+
+@media (max-width: 600px) {
+  .trust-stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

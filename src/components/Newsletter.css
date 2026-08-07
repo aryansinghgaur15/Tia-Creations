@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — NEWSLETTER
+   Warm alternate background, premium collector's club feel
+   ═══════════════════════════════════════════════════════════════ */
+
+.newsletter-section {
+  background: var(--bg-alt);
+  padding: 120px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture overlay */
+.newsletter-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.newsletter-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.newsletter-content {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 64px;
+}
+
+.newsletter-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  color: var(--heading);
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+.newsletter-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--body);
+  margin-bottom: 20px;
+}
+
+/* Live count */
+.newsletter-live-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.newsletter-live-count svg {
+  opacity: 0.7;
+}
+
+/* Form */
+.newsletter-form {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.newsletter-input {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  color: var(--heading);
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  border-radius: 4px 0 0 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newsletter-input::placeholder {
+  color: rgba(109, 109, 109, 0.5);
+}
+
+.newsletter-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-pale);
+}
+
+.input-error {
+  border-color: #d32f2f !important;
+  color: #d32f2f;
+}
+
+.newsletter-form .btn-primary {
+  height: 56px;
+  border-radius: 0 4px 4px 0;
+  padding: 0 32px;
+}
+
+.newsletter-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  height: 56px;
+  width: 100%;
+  border-radius: 4px;
+  color: var(--heading);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* Benefits Grid */
+.newsletter-benefits {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid var(--border);
+  padding-top: 48px;
+  gap: 24px;
+}
+
+.benefit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.benefit-item span {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--body);
+  text-align: center;
+}
+
+/* Collector toast */
+.newsletter-collector-toast {
+  margin-top: 32px;
+  min-height: 24px;
+}
+
+.collector-toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--body);
+}
+
+.collector-toast-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2D6A4F;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (max-width: 768px) {
+  .newsletter-section { padding: 80px 0; }
+  .newsletter-container { padding: 0 24px; }
+  .newsletter-form { flex-direction: column; gap: 16px; }
+  .newsletter-input { border-radius: 4px; text-align: center; }
+  .newsletter-form .btn-primary { border-radius: 4px; width: 100%; justify-content: center; }
+  
+  .newsletter-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 24px;
+  }
+}

@@ -1,0 +1,472 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — HERO
+   Luxury Museum Redesign
+   40/60 Layout, Warm Ivory Background, Masterpiece Stack
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Section Shell ───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 90px;
+  background: var(--bg);
+}
+
+/* Paper-grain texture */
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Warm radial glow simulating museum lighting */
+.hero::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 65%;
+  height: 100%;
+  background: radial-gradient(ellipse 70% 80% at 75% 50%, rgba(255, 255, 255, 0.7) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 4fr 6fr; /* 40/60 Split */
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* ── Left Column (40%) ───────────────────────────────────────── */
+.hero__left {
+  padding: 80px 40px 120px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Eyebrow */
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 32px;
+}
+
+.hero__eyebrow-dot {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Headline */
+.hero__headline {
+  font-family: var(--font-heading);
+  font-size: clamp(52px, 5.5vw, 84px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -2px;
+  color: var(--heading);
+  margin: 0 0 32px;
+}
+
+.hero__headline-em {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: -0.5px;
+}
+
+/* Subheading */
+.hero__subheading {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--body);
+  margin: 0 0 16px;
+  max-width: 90%;
+  font-weight: 300;
+}
+
+/* Micro CTA */
+.hero__micro-cta {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  margin: 0 0 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__micro-cta::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--gold-pale);
+  border-radius: 50%;
+  font-size: 10px;
+  color: var(--gold);
+}
+
+/* CTAs */
+.hero__ctas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  color: var(--heading);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0 28px;
+  height: 56px;
+  border-radius: 14px;
+  border: 1px solid var(--gold-border);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.4s var(--ease-lux);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-alt);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(184, 137, 69, 0.15);
+}
+
+/* ── Right Column (60%) ──────────────────────────────────────── */
+.hero__right {
+  position: relative;
+  height: 100%;
+  min-height: 800px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__artwork-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+/* Masterpiece Frame Design */
+.artwork-frame {
+  position: absolute;
+  border-radius: 18px;
+  border: 1px solid rgba(184, 137, 69, 0.3);
+  box-shadow: 
+    0 24px 80px rgba(30, 28, 24, 0.15),
+    0 8px 24px rgba(30, 28, 24, 0.08);
+  background: var(--card);
+  padding: 8px; /* Matboard effect */
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease-lux), box-shadow 0.6s ease;
+  will-change: transform;
+}
+
+.artwork-frame:hover {
+  transform: translateY(-10px) !important;
+  box-shadow: 
+    0 32px 90px rgba(184, 137, 69, 0.2),
+    0 12px 32px rgba(30, 28, 24, 0.1);
+}
+
+.artwork-image-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.artwork-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-lux);
+}
+
+.artwork-frame:hover .artwork-img {
+  transform: scale(1.04);
+}
+
+/* Masterpiece Layout */
+.artwork-frame--main {
+  width: min(440px, 60%);
+  aspect-ratio: 3.5/4.5;
+  z-index: 3;
+}
+
+.artwork-frame--bg-1 {
+  width: min(320px, 45%);
+  aspect-ratio: 4/5;
+  z-index: 2;
+  top: 15%;
+  right: 12%;
+  opacity: 0.9;
+}
+
+.artwork-frame--bg-2 {
+  width: min(260px, 35%);
+  aspect-ratio: 3/4;
+  z-index: 1;
+  bottom: 20%;
+  left: 10%;
+  opacity: 0.85;
+}
+
+/* ── Floating Stats Glass Card ───────────────────────────────── */
+.hero__glass-stats {
+  position: absolute;
+  bottom: 12%;
+  right: 5%;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 16px 40px rgba(30, 28, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+}
+
+.stat-item-glass {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-num-glass {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1;
+}
+
+.stat-label-glass {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--body);
+  text-transform: uppercase;
+}
+
+.glass-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.glass-rating svg {
+  color: var(--gold);
+  fill: var(--gold);
+}
+
+.glass-rating-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--heading);
+  margin-left: 4px;
+}
+
+/* ── Trust Strip (Bottom of Hero) ────────────────────────────── */
+.hero__trust-strip {
+  width: 100%;
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.hero__trust-strip-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.hero__trust-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero__trust-label::after {
+  content: '';
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+.hero__trust-logos {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.hero__trust-logo {
+  color: var(--heading);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  user-select: none;
+}
+
+.hero__trust-logo:hover {
+  opacity: 1;
+}
+
+/* ── Scroll Indicator ────────────────────────────────────────── */
+.hero__scroll {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 20;
+}
+
+.hero__scroll-text {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  color: var(--body);
+  text-transform: uppercase;
+}
+
+.hero__scroll-track {
+  width: 1px;
+  height: 60px;
+  background: var(--border);
+  position: relative;
+}
+
+.hero__scroll-thumb {
+  position: absolute;
+  top: 0;
+  left: -1.5px;
+  width: 4px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .hero-main { grid-template-columns: 1fr 1fr; }
+  .hero__left { padding: 80px 40px; }
+  .hero__glass-stats {
+    bottom: 5%;
+    right: 5%;
+    padding: 20px;
+    gap: 16px 24px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    text-align: center;
+  }
+
+  .hero__left {
+    padding: 60px 40px 40px;
+    align-items: center;
+  }
+
+  .hero__eyebrow { justify-content: center; }
+  .hero__subheading { max-width: 600px; }
+  .hero__ctas { justify-content: center; }
+
+  .hero__right { height: 600px; min-height: auto; }
+  
+  .artwork-frame--main { width: 340px; }
+  .artwork-frame--bg-1 { right: 5%; top: 10%; width: 240px; }
+  .artwork-frame--bg-2 { left: 5%; bottom: 15%; width: 200px; }
+  
+  .hero__glass-stats { position: relative; bottom: auto; right: auto; margin-top: -60px; }
+  
+  .hero__trust-strip-inner { flex-direction: column; gap: 24px; }
+  .hero__trust-label::after { display: none; }
+  .hero__trust-logos { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .hero__headline { font-size: 42px; }
+  .hero__ctas { flex-direction: column; width: 100%; }
+  .hero-cta { width: 100%; justify-content: center; }
+  .hero__right { height: 500px; }
+  .artwork-frame--main { width: 260px; }
+  .artwork-frame--bg-1, .artwork-frame--bg-2 { display: none; } /* Simplify on mobile */
+  
+  .hero__glass-stats {
+    width: 90%;
+    margin: -40px auto 40px;
+  }
+}

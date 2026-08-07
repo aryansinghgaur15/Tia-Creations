@@ -1,0 +1,411 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — ARTWORK CARD (Premium)
+   Luxury card with artist avatar, rating, badges, pricing
+   ═══════════════════════════════════════════════════════════════ */
+
+.awc {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux), border-color 0.35s ease;
+  cursor: default;
+  break-inside: avoid;
+}
+
+.awc:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-border);
+}
+
+/* ── Image ──────────────────────────────────────────────────────── */
+.awc__img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+
+.awc__img-wrap--vertical { aspect-ratio: 3 / 4; }
+.awc__img-wrap--horizontal { aspect-ratio: 4 / 3; }
+.awc__img-wrap--square { aspect-ratio: 1 / 1; }
+
+.awc__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.8s var(--ease-lux);
+}
+
+.awc__img--loaded {
+  opacity: 1;
+}
+
+.awc:hover .awc__img {
+  transform: scale(1.06);
+}
+
+.awc__img-skeleton {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-alt);
+  animation: skeletonPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Hover Overlay ──────────────────────────────────────────────── */
+.awc__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 28, 24, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.awc:hover .awc__overlay {
+  opacity: 1;
+}
+
+.awc__quickview {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  color: var(--heading);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s var(--ease-lux);
+}
+
+.awc:hover .awc__quickview {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.awc__quickview:hover {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* ── Badges ─────────────────────────────────────────────────────── */
+.awc__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.awc__badge--trending {
+  background: #D44;
+  color: #fff;
+}
+
+.awc__badge--new {
+  background: #2D6A4F;
+  color: #fff;
+}
+
+.awc__badge--limited {
+  background: var(--heading);
+  color: #fff;
+}
+
+.awc__badge--bestseller {
+  background: var(--gold);
+  color: #fff;
+}
+
+.awc__badge--editorschoice {
+  background: #4A6FA5;
+  color: #fff;
+}
+
+/* ── Heart ──────────────────────────────────────────────────────── */
+.awc__heart {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border: none;
+  color: var(--body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.25s ease;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.awc:hover .awc__heart {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.awc__heart--on {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  color: #D44;
+  background: #FFF0F0;
+}
+
+.awc__heart:hover {
+  transform: scale(1.15) !important;
+  color: #D44;
+}
+
+/* ── Free Shipping ──────────────────────────────────────────────── */
+.awc__shipping {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #2D6A4F;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* ── Body ───────────────────────────────────────────────────────── */
+.awc__body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.awc__artist-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.awc__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1.5px solid var(--border);
+}
+
+.awc__avatar--placeholder {
+  background: var(--gold-pale);
+  border: 1.5px solid var(--gold-border);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.awc__artist-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.awc__artist-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--body-strong);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.awc__verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  color: #fff;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.awc__medium {
+  font-size: 10.5px;
+  color: var(--body);
+}
+
+.awc__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--heading);
+  margin: 0;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.awc__dims {
+  font-size: 11px;
+  color: var(--body);
+}
+
+.awc__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.awc__rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--heading);
+}
+
+.awc__reviews {
+  color: var(--body);
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.awc__tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.awc__tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.awc__tag--style {
+  color: var(--gold);
+  background: var(--gold-pale);
+}
+
+.awc__tag--cert {
+  color: #2D6A4F;
+  background: rgba(45, 106, 79, 0.1);
+}
+
+/* ── Bottom ─────────────────────────────────────────────────────── */
+.awc__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+  margin-top: 2px;
+}
+
+.awc__pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.awc__price {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--heading);
+  letter-spacing: 0.2px;
+}
+
+.awc__original-price {
+  font-size: 12px;
+  color: var(--body);
+  text-decoration: line-through;
+}
+
+.awc__view-btn {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--body-strong);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.awc__view-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-pale);
+}
+
+/* ── Carousel variant ───────────────────────────────────────────── */
+.awc--carousel {
+  flex: 0 0 calc(25% - 21px);
+  min-width: 260px;
+  scroll-snap-align: start;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .awc--carousel { flex: 0 0 calc(50% - 14px); }
+}
+
+@media (max-width: 600px) {
+  .awc--carousel { flex: 0 0 85vw; }
+  .awc__title { font-size: 14px; }
+  .awc__price { font-size: 15px; }
+  .awc__body { padding: 12px 14px 14px; }
+}

@@ -1,0 +1,221 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — FILTER BAR
+   Sticky filter strip for shop page
+   ═══════════════════════════════════════════════════════════════ */
+
+.filter-bar {
+  position: sticky;
+  top: 80px;
+  z-index: 50;
+  background: rgba(250, 248, 244, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.filter-bar__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.filter-bar__left svg {
+  color: var(--gold);
+}
+
+.filter-bar__count {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--body);
+}
+
+.filter-bar__clear {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--gold);
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.filter-bar__clear:hover {
+  opacity: 0.7;
+}
+
+.filter-bar__desktop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.filter-bar__mobile-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--heading);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filter-bar__mobile-toggle:hover {
+  border-color: var(--gold);
+}
+
+.filter-bar__badge {
+  background: var(--gold);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Select */
+.filter-select {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.filter-select__label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--body);
+}
+
+.filter-select__wrap {
+  position: relative;
+}
+
+.filter-select__wrap select {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 32px 10px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--heading);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s ease;
+}
+
+.filter-select__wrap select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.filter-select__icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--body);
+  pointer-events: none;
+}
+
+/* ── Mobile Drawer ────────────────────────────────────────────── */
+.filter-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 28, 24, 0.5);
+  z-index: 200;
+}
+
+.filter-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(380px, 90vw);
+  background: var(--bg);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(30, 28, 24, 0.15);
+}
+
+.filter-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.filter-drawer__header h3 {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--heading);
+}
+
+.filter-drawer__header button {
+  background: none;
+  border: none;
+  color: var(--heading);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.filter-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filter-drawer__footer {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+}
+
+.filter-drawer__footer .btn-ghost,
+.filter-drawer__footer .btn-primary {
+  flex: 1;
+  justify-content: center;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 992px) {
+  .filter-bar { padding: 12px 24px; }
+  .filter-bar__desktop { display: none; }
+  .filter-bar__mobile-toggle { display: flex; }
+}
+
+@media (max-width: 480px) {
+  .filter-select { min-width: 120px; }
+}

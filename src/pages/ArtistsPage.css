@@ -1,0 +1,360 @@
+/* ─── Artists Page General ─── */
+.artists-page {
+  padding-top: 72px; /* Account for fixed header */
+  background-color: var(--primary-bg);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ─── Hero Section ─── */
+.artists-hero {
+  height: 60vh;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: 
+    linear-gradient(to bottom, rgba(11, 11, 11, 0.8), var(--primary-bg)),
+    url('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  position: relative;
+}
+
+.artists-hero-content {
+  max-width: 800px;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+.artists-hero h1 {
+  font-size: 56px;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+}
+
+.artists-hero p {
+  font-size: 16px;
+  color: var(--soft-gray);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─── Featured Artist Wrapper ─── */
+.featured-wrapper {
+  padding: 80px 0;
+  background-color: var(--primary-bg);
+}
+
+/* ─── All Artists Section ─── */
+.all-artists-section {
+  padding: 60px 0 100px;
+  background-color: var(--secondary-bg);
+  color: var(--primary-bg);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.section-header h2 {
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 24px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select select {
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px 36px 10px 16px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--primary-bg);
+  cursor: pointer;
+  outline: none;
+  min-width: 160px;
+  transition: border-color 0.3s ease;
+}
+
+.custom-select select:hover,
+.custom-select select:focus {
+  border-color: var(--primary-bg);
+}
+
+.select-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555;
+}
+
+/* ─── Artists Grid ─── */
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+}
+
+.artist-grid-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s var(--transition-lux), box-shadow 0.4s var(--transition-lux);
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-grid-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-wrapper {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--transition-lux);
+}
+
+.artist-grid-card:hover .card-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 32px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content h3 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.artist-meta {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.artist-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--primary-bg);
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.tag-outline {
+  background: transparent;
+  color: var(--primary-bg);
+  border: 1px solid var(--primary-bg);
+}
+
+.view-profile-btn {
+  margin-top: auto;
+  background: none;
+  border: none;
+  color: var(--primary-bg);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  cursor: pointer;
+  transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.view-profile-btn:hover {
+  gap: 12px;
+  color: var(--luxury-gold);
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.no-results p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.no-results button {
+  background: var(--primary-bg);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ─── Become Artist CTA ─── */
+.become-artist-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #0f0f0f;
+  border-top: 1px solid rgba(198, 164, 106, 0.2);
+}
+
+.cta-content {
+  padding: 100px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cta-content h2 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.cta-content p {
+  font-size: 16px;
+  color: var(--soft-gray);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  font-size: 14px;
+  background: linear-gradient(135deg, #E8732A, #C85A1A);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(232, 115, 42, 0.3);
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232, 115, 42, 0.5);
+}
+
+.cta-image-wrapper {
+  height: 100%;
+  min-height: 500px;
+}
+
+.cta-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  
+  .become-artist-cta {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-image-wrapper {
+    height: 400px;
+    order: -1;
+  }
+  
+  .cta-content {
+    padding: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .artists-hero h1 {
+    font-size: 40px;
+  }
+  
+  .filters-bar {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .custom-select {
+    width: 100%;
+  }
+  
+  .custom-select select {
+    width: 100%;
+  }
+  
+  .artists-grid {
+    grid-template-columns: 1fr;
+  }
+}

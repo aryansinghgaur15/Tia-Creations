@@ -1,0 +1,157 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — FOOTER
+   Clean, light, elegant footer
+   ═══════════════════════════════════════════════════════════════ */
+
+.footer {
+  background: var(--bg);
+  padding: 80px 0 32px;
+  border-top: 1px solid var(--border);
+  color: var(--body);
+}
+
+.footer-top {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+/* ── Brand ───────────────────────────────────────────────────── */
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-logo {
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+
+.footer-logo__img {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-tagline {
+  font-family: var(--font-accent);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--heading);
+  margin-bottom: 32px;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  color: var(--heading);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(184, 137, 69, 0.2);
+}
+
+/* ── Links Grid ──────────────────────────────────────────────── */
+.footer-links {
+  display: flex;
+  gap: 80px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-column h4 {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--heading);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.footer-column a {
+  font-size: 14px;
+  color: var(--body);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+
+.footer-column a:hover {
+  color: var(--heading);
+  padding-left: 4px;
+}
+
+.footer-sell-link {
+  color: var(--gold) !important;
+  font-weight: 500;
+}
+
+.footer-sell-link:hover {
+  color: var(--gold-light) !important;
+}
+
+/* ── Bottom Bar ──────────────────────────────────────────────── */
+.footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 48px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(109, 109, 109, 0.7);
+}
+
+.made-with-love {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.heart-icon {
+  color: var(--gold);
+  fill: var(--gold);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .footer-top {
+    flex-direction: column;
+    gap: 64px;
+  }
+  
+  .footer-links {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-top, .footer-bottom { padding-left: 24px; padding-right: 24px; }
+  .footer-links { gap: 40px; flex-direction: column; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}

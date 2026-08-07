@@ -1,0 +1,764 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — SHOP PAGE (Premium)
+   Luxury art marketplace — Museum-grade design
+   ═══════════════════════════════════════════════════════════════ */
+
+.shop { min-height: 100vh; }
+
+/* ── HERO ────────────────────────────────────────────────────────── */
+.shop-hero {
+  background: #FFFFFF;
+  padding: 140px 48px 48px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.shop-hero__inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.shop-hero__breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--body);
+  margin-bottom: 24px;
+}
+
+.shop-hero__breadcrumb a {
+  color: var(--body);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.shop-hero__breadcrumb a:hover { color: var(--gold); }
+
+.shop-hero__breadcrumb--active {
+  color: var(--heading);
+  font-weight: 500;
+}
+
+.shop-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 400;
+  color: var(--heading);
+  letter-spacing: -1.5px;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.shop-hero__subtitle {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--body);
+  margin: 0 0 32px;
+  font-weight: 300;
+}
+
+/* Search */
+.shop-hero__search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 0 20px;
+  height: 56px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shop-hero__search:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-pale);
+}
+
+.shop-hero__search-icon { color: var(--body); flex-shrink: 0; }
+
+.shop-hero__search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--heading);
+}
+
+.shop-hero__search-input::placeholder {
+  color: var(--body);
+  font-weight: 300;
+}
+
+.shop-hero__search-clear {
+  background: var(--bg-alt);
+  border: none;
+  color: var(--body);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.shop-hero__search-clear:hover { background: var(--border); }
+
+/* Popular Tags */
+.shop-hero__tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.shop-hero__tags-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--body);
+  margin-right: 4px;
+}
+
+.shop-hero__tag {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: none;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--body-strong);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.shop-hero__tag:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-pale);
+}
+
+/* ── ACTIVE FILTER CHIPS ─────────────────────────────────────────── */
+.shop-active-filters {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.shop-active-filters__inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.shop-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-pale);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px 5px 12px;
+  border-radius: 20px;
+}
+
+.shop-chip button {
+  background: none;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.shop-chip button:hover { opacity: 1; }
+
+.shop-chip--clear {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--body);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shop-chip--clear:hover {
+  border-color: #D44;
+  color: #D44;
+}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────────────────── */
+.shop-layout {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 32px 48px 80px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.shop-layout__sidebar {
+  flex-shrink: 0;
+}
+
+.shop-layout__main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── TOOLBAR ─────────────────────────────────────────────────────── */
+.shop-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 28px;
+}
+
+.shop-toolbar__count {
+  font-size: 13px;
+  color: var(--body);
+}
+
+.shop-toolbar__count strong {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+.shop-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.shop-toolbar__sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shop-toolbar__sort label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--body);
+}
+
+.shop-toolbar__sort select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 32px 8px 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--heading);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236D6D6D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.2s ease;
+}
+
+.shop-toolbar__sort select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.shop-toolbar__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+.shop-toolbar__grid-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-alt);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.shop-toolbar__grid-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  color: var(--body);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shop-toolbar__grid-btn:hover {
+  color: var(--heading);
+}
+
+.shop-toolbar__grid-btn--active {
+  background: var(--card);
+  color: var(--heading);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Mobile filter button */
+.shop-mobile-filter {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--heading);
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: border-color 0.2s ease;
+}
+
+.shop-mobile-filter:hover { border-color: var(--gold); }
+
+.shop-mobile-filter__badge {
+  background: var(--gold);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── MASONRY GRID ──────────────────────────────────────────────── */
+.shop-grid {
+  column-gap: 28px;
+}
+
+.shop-grid--4 { column-count: 4; }
+.shop-grid--3 { column-count: 3; }
+.shop-grid--2 { column-count: 2; }
+
+/* ── EMPTY STATE ──────────────────────────────────────────────────── */
+.shop-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.shop-empty__icon {
+  color: var(--border);
+  margin-bottom: 24px;
+}
+
+.shop-empty h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--heading);
+  margin: 0 0 10px;
+}
+
+.shop-empty p {
+  font-size: 14px;
+  color: var(--body);
+  margin: 0 0 32px;
+}
+
+.shop-empty__actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* ── DISCOVERY (Recently Viewed) ──────────────────────────────────── */
+.shop-discovery {
+  background: #FFFFFF;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 0;
+}
+
+.shop-discovery__inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.shop-discovery__header {
+  margin-bottom: 36px;
+}
+
+.shop-discovery__title {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 400;
+  color: var(--heading);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.shop-discovery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+/* ── FEATURED ARTISTS ─────────────────────────────────────────────── */
+.shop-featured-artists {
+  background: var(--bg-alt);
+  padding: 72px 0;
+}
+
+.shop-featured-artists__inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.shop-featured-artists__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.shop-featured-artists__title {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 400;
+  color: var(--heading);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.shop-featured-artists__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.shop-artist-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux);
+}
+
+.shop-artist-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card);
+}
+
+.shop-artist-card__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.shop-artist-card__name {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  color: var(--heading);
+  margin: 0 0 4px;
+}
+
+.shop-artist-card__location {
+  font-size: 12px;
+  color: var(--body);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.shop-artist-card__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--body);
+  margin-bottom: 16px;
+}
+
+.shop-artist-card__stats span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.shop-artist-card__follow {
+  width: 100%;
+  padding: 9px 16px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--heading);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.shop-artist-card__follow:hover {
+  background: var(--heading);
+  border-color: var(--heading);
+  color: var(--bg);
+}
+
+/* ── COLLECTIONS ──────────────────────────────────────────────────── */
+.shop-collections {
+  padding: 72px 0;
+  border-top: 1px solid var(--border);
+}
+
+.shop-collections__inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.shop-collections__header {
+  margin-bottom: 36px;
+}
+
+.shop-collections__title {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 400;
+  color: var(--heading);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.shop-collections__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.shop-collection-card {
+  display: block;
+  text-decoration: none;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux);
+}
+
+.shop-collection-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card);
+}
+
+.shop-collection-card__img-wrap {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+
+.shop-collection-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-lux);
+}
+
+.shop-collection-card:hover .shop-collection-card__img {
+  transform: scale(1.08);
+}
+
+.shop-collection-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(30,28,24,0.6) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.shop-collection-card:hover .shop-collection-card__overlay { opacity: 1; }
+
+.shop-collection-card__count {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.shop-collection-card__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--heading);
+  margin: 16px 18px 4px;
+  letter-spacing: -0.2px;
+}
+
+.shop-collection-card__desc {
+  font-size: 12.5px;
+  color: var(--body);
+  margin: 0 18px 18px;
+  line-height: 1.5;
+}
+
+/* ── TRUST BAR ────────────────────────────────────────────────────── */
+.shop-trust {
+  background: #FFFFFF;
+  border-top: 1px solid var(--border);
+  padding: 64px 0;
+}
+
+.shop-trust__inner {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.shop-trust__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.shop-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+
+.shop-trust__item {
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: 14px;
+  transition: background 0.25s ease;
+}
+
+.shop-trust__item:hover { background: var(--bg-alt); }
+
+.shop-trust__icon {
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.shop-trust__label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--heading);
+  margin: 0 0 6px;
+}
+
+.shop-trust__desc {
+  font-size: 11.5px;
+  color: var(--body);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .shop-grid--4 { column-count: 3; }
+  .shop-discovery__grid { column-count: 3; }
+  .shop-featured-artists__grid { grid-template-columns: repeat(2, 1fr); }
+  .shop-collections__grid { grid-template-columns: repeat(3, 1fr); }
+  .shop-trust__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .shop-layout { padding: 24px 24px 60px; gap: 0; }
+  .shop-layout__sidebar { display: none; }
+  .shop-mobile-filter { display: inline-flex; }
+  .shop-hero { padding: 120px 24px 36px; }
+  .shop-discovery__inner,
+  .shop-featured-artists__inner,
+  .shop-collections__inner,
+  .shop-trust__inner { padding: 0 24px; }
+}
+
+@media (max-width: 768px) {
+  .shop-grid--4,
+  .shop-grid--3 { column-count: 2; column-gap: 16px; }
+  .shop-discovery__grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .shop-featured-artists__grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .shop-collections__grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .shop-trust__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .shop-toolbar { flex-wrap: wrap; gap: 12px; }
+  .shop-toolbar__right { width: 100%; justify-content: space-between; }
+  .shop-active-filters__inner { padding: 12px 24px; }
+}
+
+@media (max-width: 600px) {
+  .shop-hero { padding: 110px 16px 28px; }
+  .shop-hero__search { height: 48px; border-radius: 10px; padding: 0 14px; }
+  .shop-layout { padding: 16px 16px 48px; }
+  .shop-grid--4,
+  .shop-grid--3,
+  .shop-grid--2 { column-count: 2; column-gap: 12px; }
+  .shop-discovery__inner,
+  .shop-featured-artists__inner,
+  .shop-collections__inner,
+  .shop-trust__inner { padding: 0 16px; }
+  .shop-discovery { padding: 48px 0; }
+  .shop-featured-artists { padding: 48px 0; }
+  .shop-collections { padding: 48px 0; }
+  .shop-trust { padding: 48px 0; }
+  .shop-discovery__grid { grid-template-columns: 1fr 1fr; }
+  .shop-collections__grid { grid-template-columns: 1fr 1fr; }
+  .shop-trust__grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .shop-featured-artists__header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .shop-active-filters__inner { padding: 10px 16px; }
+  .shop-empty__actions { flex-direction: column; width: 100%; }
+  .shop-empty__actions .btn-primary,
+  .shop-empty__actions .btn-ghost { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 420px) {
+  .shop-grid--2 { column-count: 1; }
+  .shop-discovery__grid { grid-template-columns: 1fr; }
+  .shop-featured-artists__grid { grid-template-columns: 1fr; }
+  .shop-collections__grid { grid-template-columns: 1fr; }
+}

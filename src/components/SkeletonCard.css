@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — SKELETON CARD
+   Loading placeholder with pulse animation
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton-pulse {
+  background: var(--bg-alt);
+  border-radius: 6px;
+  animation: skeletonPulse 1.8s ease-in-out infinite;
+}
+
+.skeleton-card {
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  break-inside: avoid;
+}
+
+.skeleton-card__img {
+  border-radius: 0;
+}
+
+.skeleton-card__img--vertical { aspect-ratio: 3 / 4; }
+.skeleton-card__img--horizontal { aspect-ratio: 4 / 3; }
+.skeleton-card__img--square { aspect-ratio: 1 / 1; }
+
+.skeleton-card__body {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton-card__artist-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skeleton-card__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton-card__artist-text {
+  width: 80px;
+  height: 10px;
+}
+
+.skeleton-card__title {
+  width: 70%;
+  height: 14px;
+}
+
+.skeleton-card__subtitle {
+  width: 45%;
+  height: 10px;
+}
+
+.skeleton-card__tags {
+  display: flex;
+  gap: 6px;
+}
+
+.skeleton-card__tag {
+  width: 60px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.skeleton-card__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.skeleton-card__price {
+  width: 70px;
+  height: 16px;
+}
+
+.skeleton-card__action {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}

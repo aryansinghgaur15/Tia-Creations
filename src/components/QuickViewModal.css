@@ -1,0 +1,452 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIA CREATIONS — QUICK VIEW MODAL (Premium)
+   Elegant overlay modal for artwork preview
+   ═══════════════════════════════════════════════════════════════ */
+
+.qv-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 28, 24, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.qv-modal {
+  background: var(--card);
+  border-radius: 20px;
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(30, 28, 24, 0.3);
+}
+
+.qv-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--heading);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.qv-close:hover {
+  background: var(--heading);
+  color: var(--bg);
+  border-color: var(--heading);
+}
+
+.qv-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── Image ──────────────────────────────────────────────────────── */
+.qv-image-col {
+  background: var(--bg-alt);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 0 0 20px;
+}
+
+.qv-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.qv-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.qv-image--loaded { opacity: 1; }
+
+.qv-image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-alt);
+  animation: qvPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes qvPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.qv-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+
+.qv-image-share {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--body);
+  transition: all 0.2s ease;
+}
+
+.qv-image-share:hover {
+  background: var(--gold);
+  color: #fff;
+}
+
+/* ── Info Column ────────────────────────────────────────────────── */
+.qv-info-col {
+  padding: 36px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.qv-artist-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.qv-artist-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+}
+
+.qv-artist-avatar--placeholder {
+  background: var(--gold-pale);
+  border: 1.5px solid var(--gold-border);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.qv-artist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.qv-artist-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--heading);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.qv-verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  background: var(--gold);
+  color: #fff;
+  border-radius: 50%;
+}
+
+.qv-artist-sub {
+  font-size: 11px;
+  color: var(--body);
+}
+
+.qv-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--heading);
+  letter-spacing: -0.5px;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.qv-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.qv-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--heading);
+}
+
+.qv-reviews {
+  color: var(--body);
+  font-weight: 400;
+}
+
+.qv-divider {
+  width: 36px;
+  height: 1.5px;
+  background: var(--gold);
+  margin: 16px 0;
+}
+
+.qv-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.qv-price {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--heading);
+}
+
+.qv-original-price {
+  font-size: 14px;
+  color: var(--body);
+  text-decoration: line-through;
+}
+
+.qv-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.qv-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: var(--bg-alt);
+  color: var(--body);
+  border: 1px solid var(--border-soft);
+}
+
+.qv-tag--gold {
+  color: var(--gold);
+  background: var(--gold-pale);
+  border-color: var(--gold-border);
+}
+
+.qv-description {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--body);
+  margin: 0 0 16px;
+  font-weight: 300;
+}
+
+.qv-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.qv-detail {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+}
+
+.qv-detail span:first-child { color: var(--body); }
+.qv-detail span:last-child { color: var(--heading); font-weight: 500; }
+
+/* ── Actions ────────────────────────────────────────────────────── */
+.qv-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.qv-btn-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--heading);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-lux);
+}
+
+.qv-btn-main:hover {
+  background: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(184, 137, 69, 0.3);
+}
+
+.qv-btn-wishlist {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px solid var(--border);
+  padding: 13px 18px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--body);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.qv-btn-wishlist:hover {
+  border-color: #D32F2F;
+  color: #D32F2F;
+}
+
+.qv-btn-wishlist--on {
+  border-color: #D32F2F;
+  color: #D32F2F;
+  background: rgba(211, 47, 47, 0.04);
+}
+
+/* ── Perks & Link ───────────────────────────────────────────────── */
+.qv-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.qv-perk {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--body);
+}
+
+.qv-perk svg {
+  color: #2D6A4F;
+}
+
+.qv-full-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--body);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.qv-full-link:hover { color: var(--gold); }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .qv-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .qv-modal {
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .qv-content {
+    grid-template-columns: 1fr;
+  }
+
+  .qv-image-col {
+    border-radius: 20px 20px 0 0;
+    padding: 16px;
+    max-height: 280px;
+  }
+
+  .qv-info-col {
+    padding: 24px 20px 32px;
+  }
+
+  .qv-title { font-size: 22px; }
+  .qv-price { font-size: 20px; }
+
+  .qv-actions {
+    flex-direction: column;
+  }
+
+  .qv-btn-main,
+  .qv-btn-wishlist {
+    width: 100%;
+    justify-content: center;
+  }
+}

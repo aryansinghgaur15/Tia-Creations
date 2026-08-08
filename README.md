@@ -17,4 +17,6 @@ If you are developing a production application, we recommend using TypeScript wi
 
 date - 08-08-2026
 
+Day: Saturdays 7PM
+
 
